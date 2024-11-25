@@ -32,8 +32,8 @@ void Activity::showActivityList() {
     historyActivity.clear();
     std::time_t y = setTime();
     int p = 0;
-    for (size_t i = 0; i < Activity::activityList.size(); ++i) {
-        p = Activity::activityList[i].judul.length();
+    for (size_t i = 0; i < activityList.size(); ++i) {
+        p = activityList[i].judul.length();
         if(p > maks_judul){
             maks_judul = p;
         }
@@ -72,28 +72,6 @@ void Activity::showUpcomingActivity(){
                 << "\t" << "Waktu: " << upcomingActivity[i].waktu
                 << "\t" << "Prioritas: " << upcomingActivity[i].prioritas
                 << "\t" << "Status: " << upcomingActivity[i].status << std::endl;
-    }
-}
-
-void Activity::markActivity() {
-    if(activityList.empty()){
-        std::cout << "Tidak ada aktivitas";
-        exit(0);
-    }
-    else{
-        int x;
-        char y;
-        Activity::showActivityList();
-        std::cout << "Pilih nomor aktivitas untuk ditandai : ";
-        std::cin >> x;
-        if(activityList[x-1].status != "Selesai"){
-            std::cout << "Tandai sebagai selesai? (y/n) : ";
-            std::cin >> y;
-            if(y=='y'){
-                activityList[x-1].status = "Selesai";
-                std::cout<<"Aktivitas " << x << " berhasil diselesaikan" << std::endl;
-            }
-        }
     }
 }
 

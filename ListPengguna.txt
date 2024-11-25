@@ -1,0 +1,15 @@
+Mahasiswa 1:
+Username = aku
+Password = qwerty
+
+Mahasiswa 2:
+Username = kita
+Password = asdfg
+
+Admin 1:
+Username = admin1
+Password = admin123
+
+Admin 2:
+Username = admin2
+Password = admin123

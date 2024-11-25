@@ -17,7 +17,6 @@ public:
 
     static void showActivityList();
     static void showUpcomingActivity();
-    static void markActivity();
     static void showHistory();
 };
 

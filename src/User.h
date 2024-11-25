@@ -5,10 +5,10 @@
 
 class User {
 public: 
-    
-void regist();
-    
-void login();
+    static void regist();
+    static std::string login();
+    static bool cekPengguna(const std::string&, const std::string&);
+
 private: 
     std::string userID;
     std::string username;
