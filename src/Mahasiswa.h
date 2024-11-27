@@ -5,8 +5,9 @@
 
 class Mahasiswa: public User {
 public: 
-    static void markActivity();
-
+    static void showUpcomingActivity();
+    static void showHistory();
+    
 };
 
 #endif //_MAHASISWA_H

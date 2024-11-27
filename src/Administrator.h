@@ -6,8 +6,8 @@
 
 class Admin: public User {
 public: 
-    static void accessAdd();
-    static void accessDelete();
+    static void addActivity();
+    static void deleteActivity();
 };
 
 #endif //_ADMINISTRATOR_H
