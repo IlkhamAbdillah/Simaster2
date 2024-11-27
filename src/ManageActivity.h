@@ -8,7 +8,7 @@
 class manageActivity {
 private: 
     static void addActivity();
-    static void eraseActivity();
+    static void deleteActivity();
     friend class Admin;
 };
 

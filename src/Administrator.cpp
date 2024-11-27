@@ -5,6 +5,6 @@ void Admin::accessAdd() {
     manageActivity::addActivity();
 }
 
-void Admin::accessErase(){
-    manageActivity::eraseActivity();
+void Admin::accessDelete(){
+    manageActivity::deleteActivity();
 }

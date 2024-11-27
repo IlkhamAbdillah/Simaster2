@@ -1,3 +1,2 @@
-Mahasiswa 1:
-
-Mahasiswa 2:
+Upacara Bendera;1945-08-17;07:00;Tinggi;Belum selesai
+Pilkada;2024-11-27;09:00;Sedang;Belum selesai

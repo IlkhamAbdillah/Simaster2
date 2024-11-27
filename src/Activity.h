@@ -16,6 +16,7 @@ public:
     static std::vector<Activity> upcomingActivity;
 
     static void showActivityList();
+    static void generateActivity();
     static void showUpcomingActivity();
     static void showHistory();
 };

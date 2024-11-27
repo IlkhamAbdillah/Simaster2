@@ -7,7 +7,7 @@
 class Admin: public User {
 public: 
     static void accessAdd();
-    static void accessErase();
+    static void accessDelete();
 };
 
 #endif //_ADMINISTRATOR_H
