@@ -5,7 +5,7 @@ class Menu{
 public:
     static void startMenu();
     static void showMenu();
-    static void generateActivity();
+    static void generate();
     static bool logout;
 
 };

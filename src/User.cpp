@@ -1,38 +1,43 @@
 #include "User.h"
 #include "Mahasiswa.h"
 #include "Administrator.h"
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#include <conio.h>
 
-bool User::cekPengguna(const std::string& s, const std::string& t){
+std::vector<std::string> User::username;
+std::vector<std::string> User::password;
+
+void User::getUser(){
     std::ifstream pengguna("ListPengguna.txt");
     std::string line;
-    std::string lastUsername;
-    std::string lastPassword;
     int lineNumber = 0;
-    int p = -1;
-    bool ditemukan = false;
-    if (pengguna.is_open()) {
+    if(pengguna.is_open()){
         while (std::getline(pengguna, line)) {
             lineNumber++;
             if(lineNumber%2 == 1 && line != ""){
-                lastUsername = line.substr(11);
-                if(s == lastUsername){
-                    p = lineNumber;
-                }
+                username.push_back(line.substr(11));
             }
-            else if(lineNumber%2 == 0 && line !=""){
-                lastPassword = line.substr(11);
-                if(t == lastPassword && lineNumber-1 == p){
-                    ditemukan = true;
-                }
+            if(lineNumber%2 == 0 && line != ""){
+                password.push_back(line.substr(11));
             }
         }
         pengguna.close();
     }
+}
+
+bool User::cekPengguna(const std::string s, const std::string t){
+    bool ditemukan = false;
+    auto it = std::find(username.begin(), username.end(), s);
+    if (it != username.end()) {
+        int indeks = std::distance(username.begin(), it);
+        if(password[indeks]==t){
+            ditemukan = true;
+        }
+    }
     return ditemukan;
 }
 
-bool User::regist() {
+void User::regist() {
     std::string s, t;
     bool berhasil = false;
     do{
@@ -41,9 +46,15 @@ bool User::regist() {
         std::cin >> s;
 
         if(s.substr(0,5) == "Admin"){
-            std::cout << "Tidak boleh mendaftar dengan awalan Admin... \n";
+            std::cout << "\n!!!Tidak boleh mendaftar dengan awalan Admin!!!\n\n";
+            char p;
+            std::cout << "Tekan ENTER untuk mencoba username lain\n";
+            std::cout << "Tekan tombol lain untuk kembali ke menu awal \n";
             std::cin.ignore();
-            std::cin.get();
+            p = _getch();
+            if(p!='\r'){
+                break;
+            }
             std::cout << "\033[2J\033[H";
             continue;
         }
@@ -65,9 +76,15 @@ bool User::regist() {
         }
 
         if(usedName){
-            std::cout << "Username sudah ada yang menggunakan, Tekan ENTER untuk mencoba username lain... \n";
+            char p;
+            std::cout << "\n!!!Username sudah digunakan!!!\n\n";
+            std::cout << "Tekan ENTER untuk mencoba username lain\n";
+            std::cout << "Tekan tombol lain untuk kembali ke menu awal \n";
             std::cin.ignore();
-            std::cin.get();
+            p = _getch();
+            if(p!='\r'){
+                break;
+            }
             std::cout << "\033[2J\033[H";
             continue;
         }
@@ -83,8 +100,6 @@ bool User::regist() {
             std::cout << "Registrasi berhasil! Silahkan menuju Menu Login... " << std::endl;
         }
     }while(!berhasil);
-
-    return berhasil;
 }
 
 std::string User::login() {
@@ -101,9 +116,15 @@ std::string User::login() {
             ada = true;
         }
         else{
-            std::cout << "Username atau Password yang Anda masukkan salah \nTekan ENTER untuk kembali ke menu login...\n";
-            std::cin.ignore();
-            std::cin.get();
+            char p;
+            std::cout << "\n!!!Username atau Password yang Anda masukkan salah!!!\n\n";
+            std::cout << "Tekan ENTER untuk kembali ke menu login...\n";
+            std::cout << "Tekan tombol lain untuk kembali ke menu awal \n";
+            p = _getch();
+            if(p!='\r'){
+                tipe = "Adminout";
+                break;
+            }
             std::cout << "\033[2J\033[H";
         }
     }while(!ada);

@@ -27,34 +27,34 @@ bool compareTime(std::string tanggal, std::string waktu, std::time_t x){
     return waktu_aktivitas < x;
 }
 
-void Activity::showActivityList(){
+void Activity::showActivityList(const std::vector<Activity> a){
     upcomingActivity.clear();
     historyActivity.clear();
     std::time_t y = setTime();
     int p = 0;
-    for (size_t i = 0; i < activityList.size(); ++i){
-        p = activityList[i].judul.length();
+    for (size_t i = 0; i < a.size(); ++i){
+        p = a[i].judul.length();
         if(p > maks_judul){
             maks_judul = p;
         }
     }
     std::cout << "=== Daftar Aktivitas ===" << std::endl;
-    for (size_t i = 0; i < activityList.size(); ++i){
-        std::cout << i + 1 << ". " << activityList[i].judul;
-        int q = activityList[i].judul.length();
+    for (size_t i = 0; i < a.size(); ++i){
+        std::cout << i + 1 << ". " << a[i].judul;
+        int q = a[i].judul.length();
         while(q < maks_judul){
             std::cout<<" ";
             q++;
         }
-        std::cout << "\t" << "Tanggal: " << activityList[i].tanggal
-                  << "\t" << "Waktu: " << activityList[i].waktu
-                  << "\t" << "Prioritas: " << activityList[i].prioritas
-                  << "\t" << "Lokasi: " << activityList[i].lokasi << std::endl;
-        if(!compareTime(activityList[i].tanggal, activityList[i].waktu, y)){
-            upcomingActivity.push_back(activityList[i]);
+        std::cout << "\t" << "Tanggal: " << a[i].tanggal
+                  << "\t" << "Waktu: " << a[i].waktu
+                  << "\t" << "Prioritas: " << a[i].prioritas
+                  << "\t" << "Lokasi: " << a[i].lokasi << std::endl;
+        if(!compareTime(a[i].tanggal, a[i].waktu, y)){
+            upcomingActivity.push_back(a[i]);
         }
         else{
-            historyActivity.push_back(activityList[i]);
+            historyActivity.push_back(a[i]);
         }
     }
 }

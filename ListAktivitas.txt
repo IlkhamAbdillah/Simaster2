@@ -1,3 +1,4 @@
 Upacara Kemerdekaan;1945-08-17;07:00;Tinggi;Jalan Pegangsaan Timur No.56
 Pilkada;2024-11-27;09:00;Tinggi;Daerah masing-masing
 Menyelesaikan Proyek;2024-12-10;00:00;Tinggi;SGLC FT UGM
+UAS;2024-12-02;10:00;Tinggi;SGLC FT UGM

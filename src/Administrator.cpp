@@ -27,7 +27,7 @@ bool isValidTime(const std::string& time) {
 
 bool isValidPriority(std::string priority){
     if(priority == "Tinggi" || priority == "Sedang" || priority == "Rendah") return true;
-    else return flase;
+    else return false;
 }
 
 void Admin::addActivity() {
@@ -70,47 +70,55 @@ void Admin::addActivity() {
 }
 
 void Admin::deleteActivity() {
+    bool sesuai = true;
     int a;
-    Activity::showActivityList();
+    Activity::showActivityList(Activity::activityList);
+    std::cout << "\nMemilih yang diluar daftar akan kembali ke menu utama\n";
     std::cout << "Pilih aktivitas untuk dihapus : ";
     std::cin >> a;
-    std::string targetJudul = Activity::activityList[a-1].judul;
-    std::ifstream inputFile("ListAktivitas.txt");
-    std::vector<Activity> activities;
-    std::string line;
-    if (inputFile.is_open()) {
-        while (std::getline(inputFile, line)) {
-            std::stringstream ss(line);
-            std::string isi;
-            Activity activity;
-            int currentIndex = 0;
-
-            while (std::getline(ss, isi, ';')) {
-                if (currentIndex == 0) activity.judul = isi;
-                else if (currentIndex == 1) activity.tanggal = isi;
-                else if (currentIndex == 2) activity.waktu = isi;
-                else if (currentIndex == 3) activity.prioritas = isi;
-                else if (currentIndex == 4) activity.lokasi = isi;
-                currentIndex++;
-            }
-
-            if (currentIndex == 5 && activity.judul != targetJudul) {
-                activities.push_back(activity);
-            }
-        }
-        inputFile.close();
+    if (std::cin.fail() || a > Activity::activityList.size()){
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Membersihkan buffer
+        sesuai = false;
     }
-    std::ofstream outputFile("ListAktivitas.txt", std::ios::trunc);
-    if (outputFile.is_open()) {
-        for (const auto& activity : activities) {
-            outputFile << activity.judul << ";"
-                       << activity.tanggal << ";"
-                       << activity.waktu << ";"
-                       << activity.prioritas << ";"
-                       << activity.lokasi << "\n";
+    if(sesuai){
+        std::string targetJudul = Activity::activityList[a-1].judul;
+        std::ifstream inputFile("ListAktivitas.txt");
+        std::vector<Activity> activities;
+        std::string line;
+        if (inputFile.is_open()) {
+            while (std::getline(inputFile, line)) {
+                std::stringstream ss(line);
+                std::string isi;
+                Activity activity;
+                int currentIndex = 0;
+                while (std::getline(ss, isi, ';')) {
+                    if (currentIndex == 0) activity.judul = isi;
+                    else if (currentIndex == 1) activity.tanggal = isi;
+                    else if (currentIndex == 2) activity.waktu = isi;
+                    else if (currentIndex == 3) activity.prioritas = isi;
+                    else if (currentIndex == 4) activity.lokasi = isi;
+                    currentIndex++;
+                }
+
+                if (currentIndex == 5 && activity.judul != targetJudul) {
+                    activities.push_back(activity);
+                }
+            }
+            inputFile.close();
         }
-        outputFile.close();
+        std::ofstream outputFile("ListAktivitas.txt", std::ios::trunc);
+        if (outputFile.is_open()) {
+            for (const auto& activity : activities) {
+                outputFile << activity.judul << ";"
+                        << activity.tanggal << ";"
+                        << activity.waktu << ";"
+                        << activity.prioritas << ";"
+                        << activity.lokasi << "\n";
+            }
+            outputFile.close();
+        }
+        Activity::activityList.erase(Activity::activityList.begin() + a - 1);
+        std::cout << "Aktivitas " << a << " berhasil dihapus" << std::endl;
     }
-    Activity::activityList.erase(Activity::activityList.begin() + a - 1);
-    std::cout << "Aktivitas " << a << " berhasil dihapus" << std::endl;
 }

@@ -7,7 +7,7 @@ class Mahasiswa: public User {
 public: 
     static void showUpcomingActivity();
     static void showHistory();
-    
+    static void sortActivity();
 };
 
 #endif //_MAHASISWA_H

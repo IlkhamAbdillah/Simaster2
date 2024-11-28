@@ -13,7 +13,7 @@ public:
     std::string lokasi;
     static std::vector<Activity> activityList;
 
-    static void showActivityList();
+    static void showActivityList(const std::vector<Activity>);
 
 private:
     static std::vector<Activity> historyActivity;
