@@ -50,7 +50,7 @@ bool comparetime(const Activity a, const Activity b){
     string datetimeA = a.tanggal + " " + a.waktu;
     string datetimeB = b.tanggal + " " + b.waktu;
 
-    if (datetimeA != datetimeB) {
+    if (datetimeA != datetimeB){
         return datetimeA < datetimeB;
     }
     return comparepriority(a, b);

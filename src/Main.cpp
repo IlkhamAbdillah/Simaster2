@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-int main() {
+int main(){
     Menu::generate();
     while(true){
         Menu::startMenu();

@@ -13,7 +13,7 @@ void User::getUser(){
     string line;
     int lineNumber = 0;
     if(pengguna.is_open()){
-        while (getline(pengguna, line)) {
+        while (getline(pengguna, line)){
             lineNumber++;
             if(lineNumber%2 == 1 && line != ""){
                 username.push_back(line.substr(11));
@@ -29,7 +29,7 @@ void User::getUser(){
 bool User::checkUser(const string input_username, const string input_password){
     bool ditemukan = false;
     auto ambil = find(username.begin(), username.end(), input_username);
-    if (ambil != username.end()) {
+    if (ambil != username.end()){
         int indeks = distance(username.begin(), ambil);
         if(password[indeks]==input_password){
             ditemukan = true;
@@ -38,14 +38,13 @@ bool User::checkUser(const string input_username, const string input_password){
     return ditemukan;
 }
 
-void User::regist() {
+void User::regist(){
     string input_username, input_password;
     bool berhasil = false;
     do{
         cout << "=== Menu Registrasi ===" << endl;
         cout << "Username : ";
         cin >> input_username;
-
         if(input_username.substr(0,5) == "Admin"){
             cout << "\n!!!Tidak boleh mendaftar dengan awalan Admin!!!\n\n";
             char input;
@@ -59,12 +58,10 @@ void User::regist() {
             cout << "\033[2J\033[H";
             continue;
         }
-
         ifstream pengguna("ListPengguna.txt");
         string line;
         bool usedName = false;
         int lineNumber = 0;
-
         if(pengguna.is_open()){
             while(getline(pengguna, line)){
                 lineNumber++;
@@ -75,7 +72,6 @@ void User::regist() {
            }
            pengguna.close();
         }
-
         if(usedName){
             char input;
             cout << "\n!!!Username sudah digunakan!!!\n\n";
@@ -89,10 +85,8 @@ void User::regist() {
             cout << "\033[2J\033[H";
             continue;
         }
-
         cout << "Password : ";
         cin >> input_password;
-
         ofstream penggunaOut("ListPengguna.txt", ios::app);
         if(penggunaOut.is_open()){
             penggunaOut << "Username = " << input_username << "\n" << "Password = " << input_password << "\n\n\n";
@@ -105,7 +99,7 @@ void User::regist() {
     }while(!berhasil);
 }
 
-string User::login() {
+string User::login(){
     string input_username, input_password, tipe;
     bool ada = false;
     do{

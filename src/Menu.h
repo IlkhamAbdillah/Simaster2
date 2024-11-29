@@ -1,7 +1,7 @@
 #ifndef _MENU_H
 #define _MENU_H
 
-class Menu{
+class Menu {
 public:
     static void startMenu();
     static void showMenu();
