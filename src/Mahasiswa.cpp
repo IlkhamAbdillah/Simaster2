@@ -2,36 +2,37 @@
 #include "Menu.h"
 #include "Activity.h"
 #include <conio.h>
+using namespace std;
 
 void Mahasiswa::showUpcomingActivity(){
-    std::cout << "=== Aktivitas Yang Akan Datang ===" << std::endl;
+    cout << "=== Aktivitas Yang Akan Datang ===" << endl;
     for (size_t i = 0; i < Activity::upcomingActivity.size(); ++i){
-        std::cout << i + 1 << ". " << Activity::upcomingActivity[i].judul;
-        int q = Activity::upcomingActivity[i].judul.length();
-        while(q < Activity::maks_judul){
-            std::cout<<" ";
-            q++;
+        cout << i + 1 << ". " << Activity::upcomingActivity[i].judul;
+        int tambah = Activity::upcomingActivity[i].judul.length();
+        while(tambah < Activity::maks_judul){
+            cout<<" ";
+            tambah++;
         }
-        std::cout << "\t" << "Tanggal: " << Activity::upcomingActivity[i].tanggal
+        cout << "\t" << "Tanggal: " << Activity::upcomingActivity[i].tanggal
                 << "\t" << "Waktu: " << Activity::upcomingActivity[i].waktu
                 << "\t" << "Prioritas: " << Activity::upcomingActivity[i].prioritas
-                << "\t" << "Lokasi: " << Activity::upcomingActivity[i].lokasi << std::endl;
+                << "\t" << "Lokasi: " << Activity::upcomingActivity[i].lokasi << endl;
     }
 }
 
 void Mahasiswa::showHistory(){
-    std::cout << "=== Riwayat Aktivitas ===" << std::endl;
+    cout << "=== Riwayat Aktivitas ===" << endl;
     for (size_t i = 0; i < Activity::historyActivity.size(); ++i){
-        std::cout << i + 1 << ". " << Activity::historyActivity[i].judul;
-        int q = Activity::historyActivity[i].judul.length();
-        while(q < Activity::maks_judul){
-            std::cout<<" ";
-            q++;
+        cout << i + 1 << ". " << Activity::historyActivity[i].judul;
+        int tambah = Activity::historyActivity[i].judul.length();
+        while(tambah < Activity::maks_judul){
+            cout<<" ";
+            tambah++;
         }
-        std::cout << "\t" << "Tanggal: " << Activity::historyActivity[i].tanggal
+        cout << "\t" << "Tanggal: " << Activity::historyActivity[i].tanggal
                     << "\t" << "Waktu: " << Activity::historyActivity[i].waktu
                     << "\t" << "Prioritas: " << Activity::historyActivity[i].prioritas
-                    << "\t" << "Lokasi: " << Activity::historyActivity[i].lokasi << std::endl;
+                    << "\t" << "Lokasi: " << Activity::historyActivity[i].lokasi << endl;
     }
 }
 
@@ -46,8 +47,8 @@ bool comparepriority(const Activity a, const Activity b){
 }
 
 bool comparetime(const Activity a, const Activity b){
-    std::string datetimeA = a.tanggal + " " + a.waktu;
-    std::string datetimeB = b.tanggal + " " + b.waktu;
+    string datetimeA = a.tanggal + " " + a.waktu;
+    string datetimeB = b.tanggal + " " + b.waktu;
 
     if (datetimeA != datetimeB) {
         return datetimeA < datetimeB;
@@ -56,20 +57,15 @@ bool comparetime(const Activity a, const Activity b){
 }
 
 void Mahasiswa::sortActivity(){
-    std::vector<Activity> sortedActivity = Activity::activityList;
-    char p;
-    std::cout << "=== Urutkan Aktivitas ===\n" << std::endl;
-    std::cout << "1. Berdasarkan waktu\n" << "2. Berdasaarkan prioritas\n\n";
-    std::cout << "\nTekan tombol yang lain untuk kembali";
-    p = _getch();
-    if(p=='1'){
-        std::sort(sortedActivity.begin(), sortedActivity.end(), comparetime);
+    char input;
+    cout << "=== Urutkan Aktivitas ===\n\n";
+    cout << "1. Berdasarkan waktu\n" << "2. Berdasaarkan prioritas\n\n";
+    cout << "Tekan tombol yang lain untuk kembali";
+    input = _getch();
+    if(input=='1'){
+        sort(Activity::activityList.begin(), Activity::activityList.end(), comparetime);
     }
-    else if(p=='2'){
-        std::sort(sortedActivity.begin(), sortedActivity.end(), comparepriority);
+    else if(input=='2'){
+        sort(Activity::activityList.begin(), Activity::activityList.end(), comparepriority);
     }
-    std::cout<<"\033[2J\033[H";
-    Activity::showActivityList(sortedActivity);
-    std::cout << "\nTekan tombol apa saja untuk kembali";
-    _getch();
 }

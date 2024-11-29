@@ -1,13 +1,15 @@
 #include "Activity.h"
 #include "Menu.h"
 #include "Administrator.h"
+#include <conio.h>
+using namespace std;
 
-bool isValidDate(const std::string& date) {
-    std::regex datePattern(R"(^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$)");
-    if (std::regex_match(date, datePattern)) {
+bool isValidDate(const string& date) {
+    regex datePattern(R"(^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$)");
+    if (regex_match(date, datePattern)) {
         int year, month, day;
         char delimiter1, delimiter2;
-        std::istringstream iss(date);
+        istringstream iss(date);
         iss >> year >> delimiter1 >> month >> delimiter2 >> day;
         if (delimiter1 == '-' && delimiter2 == '-') {
             int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -20,84 +22,85 @@ bool isValidDate(const std::string& date) {
     return false;
 }
 
-bool isValidTime(const std::string& time) {
-    std::regex timePattern(R"(^([01]\d|2[0-3]):([0-5]\d)$)");
-    return std::regex_match(time, timePattern);
+bool isValidTime(const string& time) {
+    regex timePattern(R"(^([01]\d|2[0-3]):([0-5]\d)$)");
+    return regex_match(time, timePattern);
 }
 
-bool isValidPriority(std::string priority){
+bool isValidPriority(string priority){
     if(priority == "Tinggi" || priority == "Sedang" || priority == "Rendah") return true;
     else return false;
 }
 
 void Admin::addActivity() {
     Activity adding;
-    char x;
-    std::cin.ignore();
-    std::cout << "Judul : ";
-    std::getline(std::cin, adding.judul);
-    std::cout << "Tanggal (YYYY-MM-DD): ";
-    std::getline(std::cin, adding.tanggal);
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Judul : ";
+    getline(cin, adding.judul);
+    cout << "Tanggal (YYYY-MM-DD): ";
+    getline(cin, adding.tanggal);
     while(!isValidDate(adding.tanggal)){
-        std::cout << "Tanggal tidak valid \n";
-        std::cout << "Tanggal (YYYY-MM-DD): ";
-        std::getline(std::cin, adding.tanggal);
+        cout << "Tanggal tidak valid \n";
+        cout << "Tanggal (YYYY-MM-DD): ";
+        getline(cin, adding.tanggal);
     }
-    std::cout << "Waktu (HH:MM): ";
-    std::getline(std::cin, adding.waktu);
+    cout << "Waktu (HH:MM): ";
+    getline(cin, adding.waktu);
     while(!isValidTime(adding.waktu)){
-        std::cout << "Waktu tidak valid \n";
-        std::cout << "Waktu (HH:MM): ";
-        std::getline(std::cin, adding.waktu);
+        cout << "Waktu tidak valid \n";
+        cout << "Waktu (HH:MM): ";
+        getline(cin, adding.waktu);
     }
-    std::cout << "Prioritas (Tinggi/Sedang/Rendah): ";
-    std::getline(std::cin, adding.prioritas);
+    cout << "Prioritas (Tinggi/Sedang/Rendah): ";
+    getline(cin, adding.prioritas);
     while(!isValidPriority(adding.prioritas)){
-        std::cout << "Prioritas tidak valid \n";
-        std::cout << "Prioritas (Tinggi/Sedang/Rendah): ";
-        std::getline(std::cin, adding.prioritas);
+        cout << "Prioritas tidak valid \n";
+        cout << "Prioritas (Tinggi/Sedang/Rendah): ";
+        getline(cin, adding.prioritas);
     }
-    std::cout << "Lokasi : ";
-    std::getline(std::cin, adding.lokasi);
-    std::string l = ";";
-    Activity::activityList.push_back(adding);
-    std::string gabung = adding.judul + l + adding.tanggal + l + adding.waktu + l + adding.prioritas + l + adding.lokasi;
-    std::ofstream aktif("ListAktivitas.txt", std::ios::app);
+    cout << "Lokasi : ";
+    getline(cin, adding.lokasi);
+    string delimiter = ";";
+    Activity::adminActivity.push_back(adding);
+    string gabung = adding.judul + delimiter + adding.tanggal + delimiter + adding.waktu + delimiter + adding.prioritas + delimiter + adding.lokasi;
+    ofstream aktif("ListAktivitas.txt", ios::app);
     if (aktif.is_open()) {
         aktif << gabung + "\n";
         aktif.close();
     }
+    Activity::activityList = Activity::adminActivity;
 }
 
 void Admin::deleteActivity() {
     bool sesuai = true;
-    int a;
-    Activity::showActivityList(Activity::activityList);
-    std::cout << "\nMemilih yang diluar daftar akan kembali ke menu utama\n";
-    std::cout << "Pilih aktivitas untuk dihapus : ";
-    std::cin >> a;
-    if (std::cin.fail() || a > Activity::activityList.size()){
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Membersihkan buffer
+    int input;
+    Activity::showActivityList(Activity::adminActivity);
+    cout << "\nMemilih yang diluar daftar akan kembali ke menu utama\n";
+    cout << "Pilih aktivitas untuk dihapus : ";
+    cin >> input;
+    if (cin.fail() || input < 1 || input > Activity::adminActivity.size()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         sesuai = false;
     }
     if(sesuai){
-        std::string targetJudul = Activity::activityList[a-1].judul;
-        std::ifstream inputFile("ListAktivitas.txt");
-        std::vector<Activity> activities;
-        std::string line;
+        string targetJudul = Activity::adminActivity[input-1].judul;
+        ifstream inputFile("ListAktivitas.txt");
+        vector<Activity> activities;
+        string line;
         if (inputFile.is_open()) {
-            while (std::getline(inputFile, line)) {
-                std::stringstream ss(line);
-                std::string isi;
+            while (getline(inputFile, line)) {
+                stringstream ss(line);
+                string isi_file;
                 Activity activity;
                 int currentIndex = 0;
-                while (std::getline(ss, isi, ';')) {
-                    if (currentIndex == 0) activity.judul = isi;
-                    else if (currentIndex == 1) activity.tanggal = isi;
-                    else if (currentIndex == 2) activity.waktu = isi;
-                    else if (currentIndex == 3) activity.prioritas = isi;
-                    else if (currentIndex == 4) activity.lokasi = isi;
+                while (getline(ss, isi_file, ';')) {
+                    if (currentIndex == 0) activity.judul = isi_file;
+                    else if (currentIndex == 1) activity.tanggal = isi_file;
+                    else if (currentIndex == 2) activity.waktu = isi_file;
+                    else if (currentIndex == 3) activity.prioritas = isi_file;
+                    else if (currentIndex == 4) activity.lokasi = isi_file;
                     currentIndex++;
                 }
 
@@ -107,7 +110,7 @@ void Admin::deleteActivity() {
             }
             inputFile.close();
         }
-        std::ofstream outputFile("ListAktivitas.txt", std::ios::trunc);
+        ofstream outputFile("ListAktivitas.txt", ios::trunc);
         if (outputFile.is_open()) {
             for (const auto& activity : activities) {
                 outputFile << activity.judul << ";"
@@ -118,7 +121,11 @@ void Admin::deleteActivity() {
             }
             outputFile.close();
         }
-        Activity::activityList.erase(Activity::activityList.begin() + a - 1);
-        std::cout << "Aktivitas " << a << " berhasil dihapus" << std::endl;
+        Activity::adminActivity.erase(Activity::adminActivity.begin() + input - 1);
+        Activity::activityList = Activity::adminActivity;
+        cout << "\n";
+        cout << "Aktivitas " << input << " berhasil dihapus\n";
+        cout << "Tekan tombol apa saja untuk kembali";
+        _getch();
     }
 }

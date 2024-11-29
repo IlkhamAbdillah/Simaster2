@@ -2,17 +2,18 @@
 #define _USER_H
 
 #include<bits/stdc++.h>
+using namespace std;
 
 class User {
 public: 
     static void regist();
-    static std::string login();
+    static string login();
     static void getUser();
-    static bool cekPengguna(const std::string, const std::string);
+    static bool checkUser(const string, const string);
 
 private: 
-    static std::vector<std::string> username;
-    static std::vector<std::string> password;
+    static vector<string> username;
+    static vector<string> password;
 };
 
 #endif //_USER_H

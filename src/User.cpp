@@ -3,16 +3,17 @@
 #include "Administrator.h"
 #include <bits/stdc++.h>
 #include <conio.h>
+using namespace std;
 
-std::vector<std::string> User::username;
-std::vector<std::string> User::password;
+vector<string> User::username;
+vector<string> User::password;
 
 void User::getUser(){
-    std::ifstream pengguna("ListPengguna.txt");
-    std::string line;
+    ifstream pengguna("ListPengguna.txt");
+    string line;
     int lineNumber = 0;
     if(pengguna.is_open()){
-        while (std::getline(pengguna, line)) {
+        while (getline(pengguna, line)) {
             lineNumber++;
             if(lineNumber%2 == 1 && line != ""){
                 username.push_back(line.substr(11));
@@ -25,12 +26,12 @@ void User::getUser(){
     }
 }
 
-bool User::cekPengguna(const std::string s, const std::string t){
+bool User::checkUser(const string input_username, const string input_password){
     bool ditemukan = false;
-    auto it = std::find(username.begin(), username.end(), s);
-    if (it != username.end()) {
-        int indeks = std::distance(username.begin(), it);
-        if(password[indeks]==t){
+    auto ambil = find(username.begin(), username.end(), input_username);
+    if (ambil != username.end()) {
+        int indeks = distance(username.begin(), ambil);
+        if(password[indeks]==input_password){
             ditemukan = true;
         }
     }
@@ -38,36 +39,36 @@ bool User::cekPengguna(const std::string s, const std::string t){
 }
 
 void User::regist() {
-    std::string s, t;
+    string input_username, input_password;
     bool berhasil = false;
     do{
-        std::cout << "=== Menu Registrasi ===" << std::endl;
-        std::cout << "Username : ";
-        std::cin >> s;
+        cout << "=== Menu Registrasi ===" << endl;
+        cout << "Username : ";
+        cin >> input_username;
 
-        if(s.substr(0,5) == "Admin"){
-            std::cout << "\n!!!Tidak boleh mendaftar dengan awalan Admin!!!\n\n";
-            char p;
-            std::cout << "Tekan ENTER untuk mencoba username lain\n";
-            std::cout << "Tekan tombol lain untuk kembali ke menu awal \n";
-            std::cin.ignore();
-            p = _getch();
-            if(p!='\r'){
+        if(input_username.substr(0,5) == "Admin"){
+            cout << "\n!!!Tidak boleh mendaftar dengan awalan Admin!!!\n\n";
+            char input;
+            cout << "Tekan ENTER untuk mencoba username lain\n";
+            cout << "Tekan tombol lain untuk kembali ke menu awal \n";
+            cin.ignore();
+            input = _getch();
+            if(input!='\r'){
                 break;
             }
-            std::cout << "\033[2J\033[H";
+            cout << "\033[2J\033[H";
             continue;
         }
 
-        std::ifstream pengguna("ListPengguna.txt");
-        std::string line;
+        ifstream pengguna("ListPengguna.txt");
+        string line;
         bool usedName = false;
         int lineNumber = 0;
 
         if(pengguna.is_open()){
-            while(std::getline(pengguna, line)){
+            while(getline(pengguna, line)){
                 lineNumber++;
-                if(line.find(s) != std::string::npos && lineNumber%2 == 1){
+                if(line.find(input_username) != string::npos && lineNumber%2 == 1){
                     usedName = true;
                     break;
                 }
@@ -76,56 +77,58 @@ void User::regist() {
         }
 
         if(usedName){
-            char p;
-            std::cout << "\n!!!Username sudah digunakan!!!\n\n";
-            std::cout << "Tekan ENTER untuk mencoba username lain\n";
-            std::cout << "Tekan tombol lain untuk kembali ke menu awal \n";
-            std::cin.ignore();
-            p = _getch();
-            if(p!='\r'){
+            char input;
+            cout << "\n!!!Username sudah digunakan!!!\n\n";
+            cout << "Tekan ENTER untuk mencoba username lain\n";
+            cout << "Tekan tombol lain untuk kembali ke menu awal \n";
+            cin.ignore();
+            input = _getch();
+            if(input!='\r'){
                 break;
             }
-            std::cout << "\033[2J\033[H";
+            cout << "\033[2J\033[H";
             continue;
         }
 
-        std::cout << "Password : ";
-        std::cin >> t;
+        cout << "Password : ";
+        cin >> input_password;
 
-        std::ofstream penggunaOut("ListPengguna.txt", std::ios::app);
+        ofstream penggunaOut("ListPengguna.txt", ios::app);
         if(penggunaOut.is_open()){
-            penggunaOut << "Username = " << s << "\n" << "Password = " << t << "\n\n\n";
+            penggunaOut << "Username = " << input_username << "\n" << "Password = " << input_password << "\n\n\n";
             penggunaOut.close();
             berhasil = true;
-            std::cout << "Registrasi berhasil! Silahkan menuju Menu Login... " << std::endl;
+            username.push_back(input_username);
+            password.push_back(input_password);
+            cout << "Registrasi berhasil! Silahkan menuju Menu Login... " << endl;
         }
     }while(!berhasil);
 }
 
-std::string User::login() {
-    std::string s, t, tipe;
+string User::login() {
+    string input_username, input_password, tipe;
     bool ada = false;
     do{
-        std::cout << "=== Menu Login ===" << std::endl;
-        std::cout << "Username : ";
-        std::cin >> s;
-        std::cout << "Password : ";
-        std::cin >> t;
-        if(User::cekPengguna(s,t)){
-            tipe = s;
+        cout << "=== Menu Login ===" << endl;
+        cout << "Username : ";
+        cin >> input_username;
+        cout << "Password : ";
+        cin >> input_password;
+        if(User::checkUser(input_username,input_password)){
+            tipe = input_username;
             ada = true;
         }
         else{
-            char p;
-            std::cout << "\n!!!Username atau Password yang Anda masukkan salah!!!\n\n";
-            std::cout << "Tekan ENTER untuk kembali ke menu login...\n";
-            std::cout << "Tekan tombol lain untuk kembali ke menu awal \n";
-            p = _getch();
-            if(p!='\r'){
+            char input;
+            cout << "\n!!!Username atau Password yang Anda masukkan salah!!!\n\n";
+            cout << "Tekan ENTER untuk kembali ke menu login...\n";
+            cout << "Tekan tombol lain untuk kembali ke menu awal \n";
+            input = _getch();
+            if(input!='\r'){
                 tipe = "Adminout";
                 break;
             }
-            std::cout << "\033[2J\033[H";
+            cout << "\033[2J\033[H";
         }
     }while(!ada);
 

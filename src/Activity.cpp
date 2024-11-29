@@ -1,60 +1,61 @@
 #include "Activity.h"
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-std::vector<Activity> Activity::activityList;
-std::vector<Activity> Activity::historyActivity;
-std::vector<Activity> Activity::upcomingActivity;
+vector<Activity> Activity::activityList;
+vector<Activity> Activity::historyActivity;
+vector<Activity> Activity::upcomingActivity;
 int Activity::maks_judul = 0;
-std::time_t waktu_sekarang;
+time_t waktu_sekarang;
 
-std::time_t setTime(){
-    auto x = std::chrono::system_clock::now();
-    std::time_t xy = std::chrono::system_clock::to_time_t(x);
+time_t setTime(){
+    auto x = chrono::system_clock::now();
+    time_t xy = chrono::system_clock::to_time_t(x);
     return xy;
 }
 
-std::time_t toTime(std::string tanggal, std::string waktu){
-    std::tm jikan = {};
-    std::string gabung = tanggal + " " + waktu;
-    std::istringstream ss(gabung);
-    ss >> std::get_time(&jikan, "%Y-%m-%d %H:%M:%S");
-    std::time_t menjadi = std::mktime(&jikan);
-    return menjadi;
+time_t toTime(string tanggal, string waktu){
+    tm to_waktu = {};
+    string gabung = tanggal + " " + waktu;
+    istringstream ss(gabung);
+    ss >> get_time(&to_waktu, "%Y-%m-%d %H:%M:%S");
+    time_t menjadi_waktu = mktime(&to_waktu);
+    return menjadi_waktu;
 }
 
-bool compareTime(std::string tanggal, std::string waktu, std::time_t x){
-    std::time_t waktu_aktivitas = toTime(tanggal, waktu);
-    return waktu_aktivitas < x;
+bool compareTime(string tanggal, string waktu, time_t banding_waktu){
+    time_t waktu_aktivitas = toTime(tanggal, waktu);
+    return waktu_aktivitas < banding_waktu;
 }
 
-void Activity::showActivityList(const std::vector<Activity> a){
+void Activity::showActivityList(const vector<Activity> aktivitas){
     upcomingActivity.clear();
     historyActivity.clear();
-    std::time_t y = setTime();
-    int p = 0;
-    for (size_t i = 0; i < a.size(); ++i){
-        p = a[i].judul.length();
-        if(p > maks_judul){
-            maks_judul = p;
+    time_t banding_waktu = setTime();
+    int panjang_judul = 0;
+    for (size_t i = 0; i < aktivitas.size(); ++i){
+        panjang_judul = aktivitas[i].judul.length();
+        if(panjang_judul > maks_judul){
+            maks_judul = panjang_judul;
         }
     }
-    std::cout << "=== Daftar Aktivitas ===" << std::endl;
-    for (size_t i = 0; i < a.size(); ++i){
-        std::cout << i + 1 << ". " << a[i].judul;
-        int q = a[i].judul.length();
-        while(q < maks_judul){
-            std::cout<<" ";
-            q++;
+    cout << "=== Daftar Aktivitas ===" << endl;
+    for (size_t i = 0; i < aktivitas.size(); ++i){
+        cout << i + 1 << ". " << aktivitas[i].judul;
+        int tambah = aktivitas[i].judul.length();
+        while(tambah < maks_judul){
+            cout<<" ";
+            tambah++;
         }
-        std::cout << "\t" << "Tanggal: " << a[i].tanggal
-                  << "\t" << "Waktu: " << a[i].waktu
-                  << "\t" << "Prioritas: " << a[i].prioritas
-                  << "\t" << "Lokasi: " << a[i].lokasi << std::endl;
-        if(!compareTime(a[i].tanggal, a[i].waktu, y)){
-            upcomingActivity.push_back(a[i]);
+        cout << "\t" << "Tanggal: " << aktivitas[i].tanggal
+                  << "\t" << "Waktu: " << aktivitas[i].waktu
+                  << "\t" << "Prioritas: " << aktivitas[i].prioritas
+                  << "\t" << "Lokasi: " << aktivitas[i].lokasi << endl;
+        if(!compareTime(aktivitas[i].tanggal, aktivitas[i].waktu, banding_waktu)){
+            upcomingActivity.push_back(aktivitas[i]);
         }
         else{
-            historyActivity.push_back(a[i]);
+            historyActivity.push_back(aktivitas[i]);
         }
     }
 }

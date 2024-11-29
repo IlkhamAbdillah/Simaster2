@@ -1,23 +1,25 @@
 #ifndef _ACTIVITY_H
 #define _ACTIVITY_H
 #include "Mahasiswa.h"
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+using namespace std;
 
 class Activity {
 public:
     static int maks_judul; //agar tampilan terlihat rapi
-    std::string judul;
-    std::string tanggal;
-    std::string waktu;
-    std::string prioritas;
-    std::string lokasi;
-    static std::vector<Activity> activityList;
+    string judul;
+    string tanggal;
+    string waktu;
+    string prioritas;
+    string lokasi;
+    static vector<Activity> activityList;
+    static vector<Activity> adminActivity;
 
-    static void showActivityList(const std::vector<Activity>);
+    static void showActivityList(const vector<Activity>);
 
 private:
-    static std::vector<Activity> historyActivity;
-    static std::vector<Activity> upcomingActivity;
+    static vector<Activity> historyActivity;
+    static vector<Activity> upcomingActivity;
     friend class Mahasiswa;
 };
 
