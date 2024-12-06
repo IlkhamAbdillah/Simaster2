@@ -1,6 +1,12 @@
 Upacara Kemerdekaan;1945-08-17;07:00;Tinggi;Jalan Pegangsaan Timur No.56
 Pilkada;2024-11-27;09:00;Tinggi;Daerah masing-masing
-Bermain Media Sosial;2024-12-16;07:00;Rendah;Kamar
-Enforian;2024-12-16;07:00;Tinggi;UNY Performance Hall
-Rapat Organisasi;2024-12-16;07:00;Sedang;SGLC FT UGM
-Tahun Baru 2024;2023-12-31;23:59;Rendah;Jogja
+ENFORIAN DTETI 2024;2024-12-16;17:30;Tinggi;Performance Hall UNY
+UAS Teori Vektor dan Matriks;2024-12-02;10:00;Tinggi;SGLC, FT UGM
+UAS Matematika Diskrit;2024-12-03;07:30;Tinggi;SGLC, FT UGM
+UAS Pemrograman Dasar;2024-12-04;07:30;Tinggi;SGLC, FT UGM
+UAS Kalkulus Variabel Tunggal;2024-12-05;10:00;Tinggi;SGLC, FT UGM
+UAS FFKG;2024-12-05;13:00;Tinggi;SGLC, FT UGM
+UAS FMK;2024-12-09;10:00;Tinggi;SGLC, FT UGM
+UAS Manajemen Industri;2024-12-12;07:30;Tinggi;SGLC, FT UGM
+Perayaan Tahun Baru;2024-12-31;19:00;Rendah;Lapangan Pancasila
+Run Through Enforian;2024-11-30;12:00;Sedang;Selasar  SGLC, FT UGM
