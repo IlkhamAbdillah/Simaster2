@@ -43,7 +43,7 @@ void Menu::startMenu(){
     logout = false;
     is_mahasiswa = true;
     char input;
-    cout << "Semalat Datang di Aplikasi Simaster 2.0 \n\n";
+    cout << "Selamat Datang di Aplikasi Simaster 2.0 \n\n";
     cout << "1. Register\n" << "2. Login\n\n" << "Tekan tombol lain untuk keluar ";
     input = _getch();
     if(input=='1'){

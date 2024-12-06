@@ -58,7 +58,7 @@ bool comparetime(const Activity a, const Activity b){
 void Mahasiswa::sortActivity(){
     char input;
     cout << "=== Urutkan Aktivitas ===\n\n";
-    cout << "1. Berdasarkan waktu\n" << "2. Berdasaarkan prioritas\n\n";
+    cout << "1. Berdasarkan waktu\n" << "2. Berdasarkan prioritas\n\n";
     cout << "Tekan tombol yang lain untuk kembali";
     input = _getch();
     if(input=='1'){
