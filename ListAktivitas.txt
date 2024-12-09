@@ -10,3 +10,6 @@ UAS FMK;2024-12-09;10:00;Tinggi;SGLC, FT UGM
 UAS Manajemen Industri;2024-12-12;07:30;Tinggi;SGLC, FT UGM
 Perayaan Tahun Baru;2024-12-31;19:00;Rendah;Lapangan Pancasila
 Run Through Enforian;2024-11-30;12:00;Sedang;Selasar  SGLC, FT UGM
+Futsal dengan Computer Science;2024-12-06;14:00;Sedang;Lapangan Futsal UNY
+Libur Natal;2024-12-25;00:00;Tinggi;Tempat Masing-Masing
+Libur Semester;2024-12-20;00:00;Rendah;Tempat Masing-Masing

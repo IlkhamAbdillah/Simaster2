@@ -94,7 +94,8 @@ void User::regist(){
             berhasil = true;
             username.push_back(input_username);
             password.push_back(input_password);
-            cout << "Registrasi berhasil! Silahkan menuju Menu Login... " << endl;
+            cout << "Registrasi berhasil! Silahkan tekan tombol apa saja untuk menuju Menu Login... " << endl;
+            _getch();
         }
     }while(!berhasil);
 }
